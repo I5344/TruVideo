@@ -256,42 +256,69 @@ class CameraModel: NSObject, ObservableObject {
             return
         }
 
+        let boundary = UUID().uuidString
         var request = URLRequest(url: URL(string: "https://webhook.site/6ea66387-31d3-42fa-ad61-7787376ad5c7")!)
         request.httpMethod = "POST"
-        let boundary = UUID().uuidString
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
 
-        let tempFile = url
+        do {
+            let fileData = try Data(contentsOf: url)
+            var body = Data()
 
-        let task = URLSession.shared.uploadTask(with: request, fromFile: tempFile) { data, response, error in
+            body.append("--\(boundary)\r\n")
+            body.append("Content-Disposition: form-data; name=\"file\"; filename=\"video.mp4\"\r\n")
+            body.append("Content-Type: video/mp4\r\n\r\n")
+            body.append(fileData)
+            body.append("\r\n--\(boundary)--\r\n")
+
+            request.httpBody = body
+
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                DispatchQueue.main.async {
+                    self.isProcessing = false
+                }
+
+                if let error = error {
+                    print("❌ Upload failed: \(error.localizedDescription)")
+                    DispatchQueue.main.async {
+                        self.presentAppClipOverlay(success: false)
+                    }
+                    return
+                }
+
+                if let httpResp = response as? HTTPURLResponse {
+                    print("📡 HTTP Status: \(httpResp.statusCode)")
+                }
+
+                if let data = data, let responseString = String(data: data, encoding: .utf8) {
+                    print("📥 Server Response: \(responseString)")
+                }
+
+                guard let httpResp = response as? HTTPURLResponse, httpResp.statusCode == 200 else {
+                    print("❌ Upload failed: \(String(describing: response))")
+                    DispatchQueue.main.async {
+                        self.presentAppClipOverlay(success: false)
+                    }
+                    return
+                }
+
+                print("✅ Video uploaded successfully")
+                DispatchQueue.main.async {
+                    self.presentAppClipOverlay(success: true)
+                }
+            }
+
+            task.resume()
+
+        } catch {
+            print("❌ Failed to read video data: \(error)")
             DispatchQueue.main.async {
                 self.isProcessing = false
-            }
-
-            if let error = error {
-                print("❌ Upload failed: \(error.localizedDescription)")
-                DispatchQueue.main.async {
-                    self.presentAppClipOverlay(success: false)
-                }
-                return
-            }
-
-            guard let httpResp = response as? HTTPURLResponse, httpResp.statusCode == 200 else {
-                print("❌ Upload failed with response: \(String(describing: response))")
-                DispatchQueue.main.async {
-                    self.presentAppClipOverlay(success: false)
-                }
-                return
-            }
-
-            print("✅ Video uploaded successfully")
-            DispatchQueue.main.async {
-                self.presentAppClipOverlay(success: true)
+                self.presentAppClipOverlay(success: false)
             }
         }
-
-        task.resume()
     }
+
 
     private func presentAppClipOverlay(success: Bool) {
         guard let rootVC = UIApplication.shared.windows.first?.rootViewController else {

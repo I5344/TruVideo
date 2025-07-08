@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>https:truvideo-hosting.web.app</string>
+		<string>https:truvideo-appclip-hosting.web.app</string>
 	</array>
 </dict>
 </plist>
