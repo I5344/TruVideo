@@ -17,5 +17,14 @@
     <string>This app requires access to your camera to scan QR codes.</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>This app requires access to your microphone for voice input.</string>
+    
+    <key>UILaunchScreen</key>
+    <dict>
+        <key>UILaunchImageName</key>
+        <string>truvideo_logo</string>
+        <key>UILaunchScreenBackgroundColorName</key>
+        <string>LaunchScreenBackground</string>
+    </dict>
+
 </dict>
 </plist>

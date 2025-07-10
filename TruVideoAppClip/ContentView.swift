@@ -8,11 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        CameraView()
-    }
-}
+    @State private var showSplash = true
 
-#Preview {
-    ContentView()
+    var body: some View {
+        ZStack {
+            if showSplash {
+                SplashScreenView()
+                    .transition(.opacity)
+            } else {
+                CameraView()
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                withAnimation {
+                    showSplash = false
+                }
+            }
+        }
+    }
 }
