@@ -11,16 +11,18 @@ struct ContentView: View {
     @State private var showSplash = true
 
     var body: some View {
-        ZStack {
+        Group {
             if showSplash {
                 SplashScreenView()
                     .transition(.opacity)
             } else {
                 CameraView()
+                    .transition(.opacity)
             }
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            // Automatically dismiss splash screen after 2 seconds
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 withAnimation {
                     showSplash = false
                 }

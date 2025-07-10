@@ -2,29 +2,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>ns</key>
-    <string></string>
-    <key>NSAppClip</key>
-    <dict>
-        <key>NSAppClipRequestEphemeralUserNotification</key>
-        <false/>
-        <key>NSAppClipRequestLocationConfirmation</key>
-        <false/>
-    </dict>
-
-    <!-- Camera and Microphone Usage Descriptions -->
-    <key>NSCameraUsageDescription</key>
-    <string>This app requires access to your camera to scan QR codes.</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>This app requires access to your microphone for voice input.</string>
-    
-    <key>UILaunchScreen</key>
-    <dict>
-        <key>UILaunchImageName</key>
-        <string>truvideo_logo</string>
-        <key>UILaunchScreenBackgroundColorName</key>
-        <string>LaunchScreenBackground</string>
-    </dict>
-
+	<key>ns</key>
+	<string></string>
+	<key>NSAppClip</key>
+	<dict>
+		<key>NSAppClipRequestEphemeralUserNotification</key>
+		<false/>
+		<key>NSAppClipRequestLocationConfirmation</key>
+		<false/>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires access to your camera to record videos.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app requires access to your microphone for voice input.</string>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UILaunchImageName</key>
+		<string>truvideo_logo</string>
+		<key>UILaunchScreenBackgroundColorName</key>
+		<string>LaunchScreenBackground</string>
+	</dict>
 </dict>
 </plist>

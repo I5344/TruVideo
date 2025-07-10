@@ -3,6 +3,26 @@
     {
       "filename" : "truvideo_logo.png",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "light"
+        }
+      ],
+      "filename" : "truvideo_logo 1.png",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "truvideo_logo_video_white.png",
+      "idiom" : "universal"
     }
   ],
   "info" : {

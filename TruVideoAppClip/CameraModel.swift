@@ -239,23 +239,6 @@ class CameraModel: NSObject, ObservableObject {
     }
 
     private func uploadVideo(url: URL) {
-        // Check file size
-        if let fileSize = try? FileManager.default.attributesOfItem(atPath: url.path)[.size] as? Int,
-           fileSize > 500_000_000 {
-            print("❌ File too large to upload: \(fileSize) bytes")
-            DispatchQueue.main.async { self.isProcessing = false }
-            return
-        }
-
-        // Check duration
-        let asset = AVAsset(url: url)
-        let duration = CMTimeGetSeconds(asset.duration)
-        if duration > 120 {
-            print("❌ Video too long: \(duration) seconds")
-            DispatchQueue.main.async { self.isProcessing = false }
-            return
-        }
-
         let boundary = UUID().uuidString
         var request = URLRequest(url: URL(string: "https://webhook.site/6ea66387-31d3-42fa-ad61-7787376ad5c7")!)
         request.httpMethod = "POST"
@@ -318,7 +301,6 @@ class CameraModel: NSObject, ObservableObject {
             }
         }
     }
-
 
     private func presentAppClipOverlay(success: Bool) {
         guard let rootVC = UIApplication.shared.windows.first?.rootViewController else {

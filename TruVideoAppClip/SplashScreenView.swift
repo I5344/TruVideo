@@ -11,7 +11,7 @@ import SwiftUI
 struct SplashScreenView: View {
     var body: some View {
         ZStack {
-            Color.white
+            Color.launchScreenBackground
                 .ignoresSafeArea()
             Image("truvideo_logo")
                 .resizable()
